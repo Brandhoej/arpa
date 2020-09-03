@@ -28,3 +28,19 @@ Eg.
 ### Fixed
 ### Deprecated
 ### Security
+
+### Component changes
+ * Reporter
+   * Handles basic message support.
+ * Scanner
+   * Can scan some special characters, literals (string, nubmer, boolean), identifiers.
+ * Parser
+   * Can parse string, number, boolean types.
+   * Can parse the CLI input based on a command input (It can parse the variables). 
+ * Runner
+   * Can take CLI arguments as input and invoke the handler for the correct command if one was found.
+ * Finder
+   * Can find the correct command based on CLI arguments.
+ * arpa
+   * Commands can be added to a dynamic collection.
+   * A function 'run' which takes CLI arguments, then it calls the finder and then the runner.

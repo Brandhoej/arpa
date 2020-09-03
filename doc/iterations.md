@@ -1,22 +1,15 @@
 # Iterations
 In this section different iterations is covered in reverse chronological order.
 
+## Backlog
+---
+ * Tree structure for command layout handling. This can enable quicker searches.
+ * Triggers which are just boolean variables but with a default value of false and they are set to true if they are defined.
+ * The command object should first be parsed such that it contains as little information as possible. (eg. triggers are converted to variables).
+
 ## 0.0.1 (WIP)
-### Component changes
- * Reporter
-   * Handles basic message support.
- * Scanner
-   * Can scan some special characters, literals (string, nubmer, boolean), identifiers.
- * Parser
-   * Can parse string, number, boolean types.
-   * Can parse the CLI input based on a command input (It can parse the variables). 
- * Runner
-   * Can take CLI arguments as input and invoke the handler for the correct command if one was found.
- * Finder
-   * Can find the correct command based on CLI arguments.
- * arpa
-   * Commands can be added to a dynamic collection.
-   * A function 'run' which takes CLI arguments, then it calls the finder and then the runner.
+---
+This version is the minimal viable product (MVP).
 
 ### Functional
  * The runner should be able to handle multiple commands.
@@ -39,15 +32,3 @@ In this section different iterations is covered in reverse chronological order.
  * When the console reporter reports the log must contain the type of message first.
  * Parsing of command objects should only happen once.
  * Searching for a command should not be noticeable.
-
-### Error codes
- * 1xx - ERR_*
-   * 101 - ERR_NOCOMMANDFOUND (The Finder did not find a corresponding command based on the CLI arguments)
-   * 102 - ERR_MISSINGCOMMANDBINDING (A binding in the command object passed to arpa is missing some information)
- * 2xx - WAR_*
- * 3xx - MSG_*
-
-## Upcoming features
- * Tree structure for command layout handling. This can enable quicker searches.
- * Triggers which are just boolean variables but with a default value of false and they are set to true if they are defined.
- * The command object should first be parsed such that it contains as little information as possible. (eg. triggers are converted to variables).

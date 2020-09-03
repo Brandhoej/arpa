@@ -12,12 +12,14 @@ In this section different iterations is covered in reverse chronological order.
 This version supports commands with a basic layout and variables.
 
 ### Requirements
- * Collector
+ * command-collection
    * Must be able to store a large amount of COs in an array.
+   * Must be able to validate commands before adding them
  * Processor (Refactor): RCO
    * Refactors the CO to a RCO
  * Validator
    * Validates based on rules wheter the RCO is valid
+   * Validate wheter RCOs are the same
  * Scanner
    * Scanner does lexical analysis and must support '-', identifiers, numbers, booleans, strings.
  * co-parser

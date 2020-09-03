@@ -23,16 +23,18 @@ asd
 ## Flow
 ---
 The flow for **adding a CO** to the collection:  
-collector → (processor => RCO) → validator → scanner → (co-parser => CFO)
-
-The flow for **parsing a CO to CFO**:  
-scanner → (co-parser => CFO)
-
-The flow for **parsing CLI arguments to CFO**:  
-scanner → (arg-parser => CFO)
+ 1. **command-processor** - use processor to create the RCO
+ 2. **command-validator** - validate the RCO
+ 3. **scanner** - tokenize the command layout.
+ 4. **command-parser** - parse the tokenization to a CFO.
+ 5. **command-collection** - add the CFO and RCO to a collection.
 
 The flow for **executing CLI arguments**:  
-runner → scanner → (arg-parser => CFO) → (finder => CO)
+ 1. **arguments-concatenator** - concate the arguments string array.
+ 2. **scanner** - tokenize the concatenated arguments.
+ 3. **arguments-parser** - parse the tokenization to a CFO.
+ 4. **command-finder** - invoke the finder with the CFO and retrieve the CO.
+ 5. **command-runner** - use the runner to invoke the command handler.
 
 ## Command precedence
 ---

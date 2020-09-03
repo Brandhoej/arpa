@@ -29,8 +29,11 @@ This version supports commands with a basic layout and variables.
  * arg-parser: CFO
    * Takes a arg-concatenated string tokennization and parses it to a CFO
  * Runner
-   * Takes arguments and execute the correct command
+   * Takes arguments and a command handler to execute async
  * Finder: CO
    * Takes a CFO and findes the matching CO if any
+   * This can be injected into the command-collection
  * Token
    * Must support literals, identifiers and '-'
+   * Must store the index of the first charater
+   * Must have a length getter

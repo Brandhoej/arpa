@@ -28,7 +28,6 @@ collector → (processor => RCO) → validator → scanner → (co-parser => CFO
 The flow for **parsing a CO to CFO**:  
 scanner → (co-parser => CFO)
 
-
 The flow for **parsing CLI arguments to CFO**:  
 scanner → (arg-parser => CFO)
 

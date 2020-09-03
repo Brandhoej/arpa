@@ -4,6 +4,37 @@
 ---
 A CLI command handler which can improve how different paths based on CLI arguments are chosen with weight on useability and efficiency. The system can both be used with a virtual CLI and a console/terminal. The system is aimed towards programmers and it assists them in keeping there code clean by decoupling the command handling. The efficiency of the system shall be based on "bad" hardware and must perform without begin noticeable and the system must not use any dependecies other than them used under development. The system useability is ensured by hidding main functionality to the user, only a small subset of functions should be visible through the entry point. The system must support node but also other environments.
 
+## Components
+---
+
+### QWERASD
+asd  
+asd  
+
+
+## Codes
+---
+ * 1xx - ERR_*
+   * 101 - ERR_COMMAND_NOT_FOUND (The Finder did not find a corresponding command based on the CLI arguments)
+   * 102 - ERR_MISSING_COMMAND_BINDING (A binding in the command object passed to arpa is missing some information)
+ * 2xx - WAR_*
+ * 3xx - MSG_*
+
+## Flow
+---
+The flow for **adding a CO** to the collection:  
+collector → (processor => RCO) → validator → scanner → (co-parser => CFO)
+
+The flow for **parsing a CO to CFO**:  
+scanner → (co-parser => CFO)
+
+
+The flow for **parsing CLI arguments to CFO**:  
+scanner → (arg-parser => CFO)
+
+The flow for **executing CLI arguments**:  
+runner → scanner → (arg-parser => CFO) → (finder => CO)
+
 ## Command precedence
 ---
 The command executed is the one with most matches and if any is optional then it will prioritize another if it's precise.
@@ -107,35 +138,13 @@ Notes:
 
 ## Tokens
 ---
-|Type      |Definition                      |Lexeme    |Literals|
-|----------|--------------------------------|----------|--------|
-|Identifier|/[a-zA-Z]+/g                    |'abc'     |'abs'   |
-|Dash      |<<'-'>>                         |'-'       |'-'     |
-|Number    |/(-?.?[0-9]+)(e?(-?.?[0-9]+)?)/g|'123e-.1  |334.2...|
-|String    ||||
-|Boolean   ||||
-
-## Codes
----
- * 1xx - ERR_*
-   * 101 - ERR_COMMAND_NOT_FOUND (The Finder did not find a corresponding command based on the CLI arguments)
-   * 102 - ERR_MISSING_COMMAND_BINDING (A binding in the command object passed to arpa is missing some information)
- * 2xx - WAR_*
- * 3xx - MSG_*
-
-## Flow
-The flow for **adding a CO** to the collection:  
-collector → (refactor => RCO) → validator → scanner → (co-parser => CFO)
-
-The flow for **parsing a CO to CFP**:  
-scanner → (co-parser => CFO)
-
-
-The flow for **parsing CLI arguments to CFP**:  
-scanner → (arg-parser => CFO)
-
-The flow for **executing CLI arguments**:  
-runner → scanner → (arg-parser => CFO) → (finder => CO)
+|Type      |Definition                             |Lexeme    |Literals|
+|----------|---------------------------------------|----------|--------|
+|Identifier|/[a-zA-Z]+/mg                          |'abc'     |'abs'   |
+|Dash      |/-+/mg                                 |'-'       |'-'     |
+|Number    |/[-]?[.]?[0-9]+[e][-]?[.]?[0-9]+?/mg   |'123e-.1' |334.2...|
+|String    |/('\|"\|\`)([a-zA-Z]+)('\|"\|`)/mg     |'"string"'|"string"|
+|Boolean   |/(true\|false)/mgi                     |FaLsE     |false   |
 
 ## How to's
 ---

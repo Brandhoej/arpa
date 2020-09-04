@@ -9,7 +9,7 @@ class Token {
     }
 
     toString() {
-        return `[${type.description}, ${this.startIndex}] ${this.lexeme} -> ${this.literal}`
+        return `[${this.type.description} typeof ${typeof this.literal}, ${this.startIndex} - ${this.startIndex + this.lexeme.length}] '${this.lexeme}' -> '${this.literal}'`
     }
 }
 

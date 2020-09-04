@@ -7,7 +7,7 @@ class TokenFactory {
     }
 
     create(type, startIndex, lexeme, literal) {
-        return new this.Token(type, startIndex, lexeme, literal);
+        return new this._Token(type, startIndex, lexeme, literal);
     }
 
     get types() {

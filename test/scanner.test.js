@@ -41,22 +41,23 @@ describe('scanner', () => {
 
     context('String literals', () => {
         it('should only recognize strings if they end and start with the same type of character', () => {
-            // " " - correct,   ' ' - correct, ` ` - correct
-            // " ' - incorrect, " ` - incorrect
-            // ' " - incorrect, ' ` - incorrect
-            // ` ' - incorrect, ` " - incorrect
+            const stack = new Stack('"\'\`"');
+            const scanner = new Scanner(reporter, stack, tokenFactory);
+            const tokens = scanner.scan();
+
+            evaluateToken(tokens[0], tokenTypes.STRING, 0, 3, '"\'\`"', '\'\`');
         });
 
-        it('should recognize \' as a possible but start and ending of a string', () => {
-            // 'string'
-        });
-
-        it('should recognize " as a possible but start and ending of a string', () => {
-            // "string"
-        });
-
-        it('should recognize ` as a possible but start and ending of a string', () => {
-            // `string`
+        it('should recognize \' \" \` as a possible but start and ending of a string', () => {
+            const stack = new Stack('" a " ` b ` \' c \'');
+            const scanner = new Scanner(reporter, stack, tokenFactory);
+            const tokens = scanner.scan();
+            
+            evaluateToken(tokens[0], tokenTypes.STRING, 0, 4, '" a "', ' a ');
+            evaluateToken(tokens[1], tokenTypes.WHITESPACE, 5, 5, ' ', ' ');
+            evaluateToken(tokens[2], tokenTypes.STRING, 6, 10, '` b `', ' b ');
+            evaluateToken(tokens[3], tokenTypes.WHITESPACE, 11, 11, ' ', ' ');
+            evaluateToken(tokens[4], tokenTypes.STRING, 12, 16, "' c '", ' c ');
         });
     });
 

@@ -147,6 +147,8 @@ Notes:
 |String    |/('\|"\|\`)([a-zA-Z]+)('\|"\|`)/mg     |'"string"'|"string"|
 |Boolean   |/(true\|false)/mgi                     |FaLsE     |false   |
 
+Note: Identifier can also contain numbers but the first character must be a letter.
+
 ## How to's
 ---
 ### How to add a command

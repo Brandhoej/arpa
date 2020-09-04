@@ -7,5 +7,5 @@ module.exports = {
 
     DASH: Symbol('DASH'),
 
-    WHITESPACE: Symbol(' ') 
+    WHITESPACE: Symbol('WHITESPACE') 
 }

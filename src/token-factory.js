@@ -6,8 +6,8 @@ class TokenFactory {
         this._Token = Token;
     }
 
-    create(type, startIndex, lexeme, literal) {
-        return new this._Token(type, startIndex, lexeme, literal);
+    create(type, startIndex, endIndex, lexeme, literal) {
+        return new this._Token(type, startIndex, endIndex, lexeme, literal);
     }
 
     get types() {

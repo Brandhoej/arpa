@@ -7,6 +7,7 @@ In this section different iterations is covered in reverse chronological order.
  * Triggers which are just boolean variables but with a default value of false and they are set to true if they are defined.
  * The command object should first be parsed such that it contains as little information as possible. (eg. triggers are converted to variables).
  * Scanner support for backslash inside strings such that the string can contain possible cases
+ * Scanner should support arrays with varied types.
 
 ## 0.0.1 (WIP)
 ---

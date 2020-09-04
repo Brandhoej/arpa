@@ -86,7 +86,7 @@ class Scanner {
     }
 
     _addToken(type, lexeme = this._getLexeme(), literal = this._getLexeme()) {
-        this._tokens.push(this._tokenFactory.create(type, this._lexemeStart, lexeme, literal))
+        this._tokens.push(this._tokenFactory.create(type, this._lexemeStart, this._stringStack.currentIndex - 1, lexeme, literal))
     }
 
     _getLexeme(start = this._lexemeStart, end = this._stringStack.currentIndex) {

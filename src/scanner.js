@@ -35,7 +35,6 @@ class Scanner {
         const char = this._stringStack.pop();
 
         switch (char) {
-            case '-': this._addToken(this._tokenFactory.types.DASH); break;
             case ' ': this._scanWhitespace(); break;
             default: this._scanLiteral(char); break;
         }
@@ -43,11 +42,12 @@ class Scanner {
 
     _scanWhitespace() {
         this._stringStack.popUntil((c) => c !== ' ');
-        this._addToken(this._tokenFactory.types.WHITESPACE, ' ', ' ');
+        this._addToken(this._tokenFactory.types.WHITESPACE, this._getLexeme(), ' ');
     }
 
     _scanLiteral(char) {
-        if (char.match(this._regexDigit)) {
+        if ((char === '-' || char === '.') && (this._stringStack.peek().match(this._regexDigit) || this._stringStack.peek() === '.' && this._stringStack.peek(1).match(this._regexDigit)) ||
+            char.match(this._regexDigit)) {
             this._scanNumber();
         } else if (char.match(this._regexLetter)) {
             this._scanIdentifier();
@@ -58,7 +58,13 @@ class Scanner {
 
     _scanIdentifier() {
         this._popIdentifier();
-        this._addToken(this._tokenFactory.types.IDENTIFIER);
+        const lexeme = this._getLexeme();
+
+        if (this._isBoolean(lexeme)) {
+            this._addToken(this._tokenFactory.types.BOOLEAN, lexeme, this._getBoolean(lexeme));
+        } else {
+            this._addToken(this._tokenFactory.types.IDENTIFIER, lexeme, lexeme);
+        }
     }
 
     _popIdentifier() {
@@ -68,12 +74,30 @@ class Scanner {
         this._stringStack.popUntil((c) => c === ' ');
     }
 
+    _isBoolean(lexeme) {
+        const lowered = lexeme.toLowerCase();
+        return lowered === 'true' || lowered === 'false';
+    }
+
+    _getBoolean(lexeme) {
+        const lowered = lexeme.toLowerCase();
+        if (lowered === 'true') {
+            return true;
+        } else if (lowered === 'false') {
+            return false;
+        }
+        this._reportError(`Thought ${lexeme} was a boolean but it is not`);
+        throw Error('Lexeme not a boolean');
+    }
+
     _scanNumber() {
         this._popNumber();
-        const { lexeme, literal } = this._getNumber();
-        if (literal === NaN) {
+        let { lexeme, literal } = this._getNumber();
+
+        if (Number.isNaN(literal)) {
             // We have an error!
-            this._reportError(`Though ${lexeme} was a number but it is not`);
+            this._reportError(`Thought ${lexeme} was a number but it is not`);
+            throw Error('Number isNaN');
         }
         this._addToken(this._tokenFactory.types.NUMBER, lexeme, literal);
     }
@@ -85,8 +109,9 @@ class Scanner {
     }
 
     _getNumber() {
+        const lexeme = this._getLexeme();
         return {
-            lexeme: this._getLexeme(),
+            lexeme,
             literal: Number(lexeme)
         };
     }
@@ -120,7 +145,7 @@ class Scanner {
     }
 
     _reportError(msg) {
-        reporter.report('ERROR', msg + ' at ' + this._lexemeStart + ', ' + this._stringStack.currentIndex);
+        this._reporter.report('ERROR', msg + ' at ' + this._lexemeStart + ', ' + this._stringStack.currentIndex);
     }
 
     get hasScanned() {

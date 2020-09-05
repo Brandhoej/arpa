@@ -6,8 +6,8 @@ class Stack {
         this._currentIndex = 0;
     }
 
-    peek() {
-        return this.array[this._currentIndex];
+    peek(offset = 0) {
+        return this.array[this._currentIndex + offset];
     }
 
     pop() {

@@ -26,13 +26,13 @@ The flow for **adding a CO** to the collection:
  1. **command-processor** - use processor to create the RCO
  2. **command-validator** - validate the RCO
  3. **scanner** - tokenize the command layout.
- 4. **command-parser** - parse the tokenization to a CFO.
+ 4. **command-finder-layout-parser** - parse the tokenization to a CFO.
  5. **command-collection** - add the CFO and RCO to a collection.
 
 The flow for **executing CLI arguments**:  
- 1. **arguments-concatenator** - concate the arguments string array.
+ 1. **arguments-joiner** - join the arguments string array.
  2. **scanner** - tokenize the concatenated arguments.
- 3. **arguments-parser** - parse the tokenization to a CFO.
+ 3. **arguments-finder-layout-parser** - parse the tokenization to a CFO but it also needs a command to find the variables and so on (TODO: does not match the arguments-finder-layout-parser from adding a CO).
  4. **command-finder** - invoke the finder with the CFO and retrieve the CO.
  5. **command-runner** - use the runner to invoke the command handler.
 
@@ -130,10 +130,14 @@ Notes:
 
 ```
 {
-    layout: [<<string[]>>],
-    variables: {
-        <key: string: any>
-    }
+    layout: string[]
+}
+```
+
+### Command Layout Object (CLO)
+```
+{
+    layout: [<<string[]>>]
 }
 ```
 

@@ -36,6 +36,6 @@ This version supports commands with a basic layout and variables.
    * Takes a CFO and findes the matching CO if any
    * This can be injected into the command-collection
  * Token
-   * Must support literals, identifiers and '-'
+   * Must support literals and identifiers
    * Must store the index of the first charater
    * Must have a length getter

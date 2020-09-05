@@ -82,9 +82,9 @@ Notes about the bindings found in the CO
     layout: string,
     variables: {
         prefix: string,
-        postfix: string,
+        suffix: string,
         seperator: string,
-        defintions: object[
+        definitions: object[
             <{
                 key: string,
                 default: any,
@@ -107,11 +107,11 @@ The refactoring from CO to RCO is based on the following action:
 {
     layout: string,
     variables: {
-        defintions: object[
+        definitions: object[
             <{
                 key: string,
                 prefix: string,
-                postfix: string,
+                suffix: string,
                 seperator: string,
                 default: any,
                 description: string | undefined

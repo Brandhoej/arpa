@@ -75,7 +75,7 @@ Composition:
 
 ### Command Object (CO)
 Notes about the bindings found in the CO
- * layout: space seperated words.
+ * layout: space separated words.
 
 ```
 {

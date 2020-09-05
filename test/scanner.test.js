@@ -12,7 +12,7 @@ const reporter = {
     report: () => _
 };
 
-describe('scanner', () => {
+describe('Scanner', () => {
     context('Whitespace', () => {
         it('should scan a lot of whitespace as a single whitespace literal', () => {
             const stack = new Stack('          ');

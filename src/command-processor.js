@@ -6,9 +6,9 @@
  */
 function processCommand(command) {
     return {
-        layout: processCommandLayout(command),
-        variables: processCommandVariables(command),
-        handler: processCommandHandler(command)
+        layout: processCommandLayout(command.layout),
+        variables: processCommandVariables(command.variables),
+        handler: processCommandHandler(command.handler)
     };
 }
 
@@ -24,17 +24,16 @@ function processCommandVariables(variables) {
     const newVariables = {};
     const prefix = variables.prefix === undefined ? '' : variables.prefix;
     const suffix = variables.suffix === undefined ? '' : variables.suffix;
-    const seperator = variables.seperator === undefined ? '' : variables.seperator;
+    const separator = variables.separator === undefined ? '' : variables.separator;
     const definitions = variables.definitions === undefined ? [] : variables.definitions;
 
     newVariables.definitions = [];
 
     for (let definition of definitions) {
         newVariables.definitions.push({
-            prefix: prefix,
-            suffix: suffix,
-            seperator: seperator,
+            prefix, suffix, separator,
 
+            key: definition.key,
             default: definition.default,
             description: definition.description
         });

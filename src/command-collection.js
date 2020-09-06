@@ -1,8 +1,8 @@
 'use strict'
 
 class CommandCollection {
-    constructor(processor, layoutParser) {
-        this._layoutParser = layoutParser;
+    constructor(validator, processor) {
+        this._validator = validator;
         this._processor = processor;
         this._commands = [];
     }

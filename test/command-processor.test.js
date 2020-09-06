@@ -1,8 +1,15 @@
 'use strict'
 
-const processor = require('../src/command-processor');
+const Token = require('../src/token');
+const tokenTypes = require('../src/token-types');
+const Stack = require('../src/stack');
+const Scanner = require('../src/scanner');
+const TokenFactory = require('../src/token-factory');
+const parseCommandLayout = require('../src/command-layout-parser');
+const Processor = require('../src/command-processor');
 const { expect } = require('chai');
 
+const processor = new Processor(Stack, Scanner, new TokenFactory(tokenTypes, Token), parseCommandLayout);
 const command = {
     layout: 'test layout',
     variables: {
@@ -25,28 +32,26 @@ const command = {
     handler
 };
 
-function handler() {
-
-}
+function handler() {}
 
 describe('CommandProcessor', () => {
     context('command layout', () => {
         it('should not make any changes to the layout', () => {
-            const refactoredCommand = processor(command);
+            const refactoredCommand = processor.processCommand(command, _ => _);
             expect(refactoredCommand.layout).to.equal(command.layout);
         });
     });
 
     context('command handler', () => {
         it('should not make any changes to the handler', () => {
-            const refactoredCommand = processor(command);
+            const refactoredCommand = processor.processCommand(command);
             expect(refactoredCommand.handler).to.equal(command.handler);
         });
     });
 
     context('command variables', () => {
         it('should have moved variable definition specific into the definition object', () => {
-            const refactoredCommand = processor(command);
+            const refactoredCommand = processor.processCommand(command);
 
             expect(refactoredCommand.variables.definitions.length).to.equal(command.variables.definitions.length);
 
@@ -91,7 +96,7 @@ describe('CommandProcessor', () => {
                 handler
             };
 
-            const refactoredCommand = processor(originalCommand);
+            const refactoredCommand = processor.processCommand(originalCommand);
 
             originalCommand.layout = 'new test layout';
             originalCommand.variables.prefix = 'new prefix';

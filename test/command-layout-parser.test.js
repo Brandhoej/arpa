@@ -6,12 +6,13 @@ const Scanner = require('../src/scanner');
 const Stack = require('../src/stack');
 const tokenTypes = require('../src/token-types');
 const Token = require('../src/token');
-const tokenFactory = new require('../src/token-factory')(tokenTypes, Token);
+const TokenFactory = require('../src/token-factory');
 
 const { expect } = require('chai');
 
+const tokenFactory = new TokenFactory(tokenTypes, Token);
 const reporter = {
-    report: () => _
+    report: _ => _
 };
 
 describe('Command parser', () => {

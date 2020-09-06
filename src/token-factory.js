@@ -15,4 +15,4 @@ class TokenFactory {
     }
 }
 
-module.exports = (types, Token) => new TokenFactory(types, Token)
+module.exports = TokenFactory;

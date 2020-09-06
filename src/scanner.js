@@ -151,6 +151,10 @@ class Scanner {
     get hasScanned() {
         return this._tokens.length > 0;
     }
+
+    get tokenTypes() {
+        return this._tokenFactory.types;
+    }
 }
 
 module.exports = Scanner;

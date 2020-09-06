@@ -1,9 +1,9 @@
 'use strict'
 
 const Collection = require('../src/command-collection');
-const validator = require('../src/command-validator');
-const processor = require('../src/command-processor');
-const layoutParser = require('../src/command-layout-parser');
+const validate = require('../src/command-validator');
+const process = require('../src/command-processor');
+const parseLayout = require('../src/command-layout-parser');
 const Stack = require('../src/stack');
 const Scanner = require('../src/scanner');
 const tokenTypes = require('../src/token-types');
@@ -38,8 +38,8 @@ function handler() {
 describe('Command collection', () => {
     context('adding commands', () => {
         it('should', () => {
-            const collection = new Collection(validator, processor, layoutParser);
-            collection.add(command);
+            const collection = new Collection(validate, process, parseLayout);
+            // collection.add(command);
             // expect(() => collection.add(command)).to.not.throw();
         });
     });

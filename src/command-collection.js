@@ -30,23 +30,14 @@ class CommandCollection {
     }
 
     _matchLayouts(args, commandLayout) {
-        console.log("args :: ");
-        console.log(args);
-        console.log("commandLayout :: ");
-        console.log(commandLayout);
-        console.log("match?");
         if (args.length !== commandLayout.length) {
             return false;
         }
         for (let i in commandLayout) {
-            console.log(args[i]);
-            console.log(commandLayout[i]);
             if (!commandLayout[i].includes(args[i][0])) {
-                console.log("false");
                 return false;
             }
         }
-        console.log("true");
         return true;
     }
 }

@@ -1,14 +1,18 @@
 'use strict'
 
-const Collection = require('../src/command-collection');
-const validate = require('../src/command-validator');
-const process = require('../src/command-processor');
-const parseLayout = require('../src/command-layout-parser');
-const Stack = require('../src/stack');
-const Scanner = require('../src/scanner');
-const tokenTypes = require('../src/token-types');
 const { expect } = require('chai');
 
+const validate = require('../src/command-validator');
+const parseLayout = require('../src/command-layout-parser');
+const tokenTypes = require('../src/token-types');
+const Token = require('../src/token');
+const TokenFactory = require('../src/token-factory');
+const Collection = require('../src/command-collection');
+const CommandProcessor = require('../src/command-processor');
+const Stack = require('../src/stack');
+const Scanner = require('../src/scanner');
+
+const tokenFactory = new TokenFactory(tokenTypes, Token);
 const command = {
     layout: 'test layout',
     variables: {
@@ -38,9 +42,10 @@ function handler() {
 describe('Command collection', () => {
     context('adding commands', () => {
         it('should', () => {
-            const collection = new Collection(validate, process, parseLayout);
-            // collection.add(command);
-            // expect(() => collection.add(command)).to.not.throw();
+            const processor = new CommandProcessor(Stack, Scanner, tokenFactory, parseLayout);
+            const collection = new Collection(validate, processor);
+            expect(() => collection.add(command)).to.not.throw();
+            expect(() => collection.add(command)).to.throw();
         });
     });
 })

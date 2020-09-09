@@ -8,13 +8,12 @@ class CommandCollection {
     }
 
     add(command) {
-        const tokens = this._scanner(command.layout);
-        const layout = this._layoutParser(tokens, this._tokenTypes);
-        if (this.contains(layout)) {
+        const processedCommand = this._processor.processCommand(command);
+        if (this.contains(processedCommand.parsedLayout)) {
             throw new Error('Command layout already exists');
         }
 
-        this._commands.push({ layout, command: processor(command) });
+        this._commands.push(processedCommand);
     }
 
     contains(args) {
@@ -23,7 +22,7 @@ class CommandCollection {
 
     find(args) {
         for (let command of this._commands) {
-            if (this._matchLayouts(args, command.layout)) {
+            if (this._matchLayouts(args, command.parsedLayout)) {
                 return command;
             }
         }
@@ -31,14 +30,23 @@ class CommandCollection {
     }
 
     _matchLayouts(args, commandLayout) {
+        console.log("args :: ");
+        console.log(args);
+        console.log("commandLayout :: ");
+        console.log(commandLayout);
+        console.log("match?");
         if (args.length !== commandLayout.length) {
             return false;
         }
-        for (let argument of args) {
-            if (!commandLayout[i].includes(argument)) {
+        for (let i in commandLayout) {
+            console.log(args[i]);
+            console.log(commandLayout[i]);
+            if (!commandLayout[i].includes(args[i][0])) {
+                console.log("false");
                 return false;
             }
         }
+        console.log("true");
         return true;
     }
 }

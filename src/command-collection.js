@@ -7,24 +7,27 @@ class CommandCollection {
         this._commands = [];
     }
 
-    add(command) {
-        const tokens = this._scanner(command.layout);
-        const layout = this._layoutParser(tokens, this._tokenTypes);
-        if (this.contains(layout)) {
+    add(command, reporter) {
+        const processedCommand = this._processor.processCommand(command, reporter);
+        if (this.containsParsedLayout(processedCommand.parsedLayout)) {
             throw new Error('Command layout already exists');
         }
 
-        this._commands.push({ layout, command: processor(command) });
+        this._commands.push(processedCommand);
     }
 
-    contains(args) {
-        return this.find(args) !== undefined;
+    containsLayout(layout, reporter) {
+        return this.containsParsedLayout(this._processor.parseCommandLayout(layout, reporter));
     }
 
-    find(args) {
+    containsParsedLayout(layout) {
+        return this.getHandler(layout) !== undefined;
+    }
+
+    getHandler(layout) {
         for (let command of this._commands) {
-            if (this._matchLayouts(args, command.layout)) {
-                return command;
+            if (this._matchLayouts(layout, command.parsedLayout)) {
+                return command.handler;
             }
         }
         return undefined;
@@ -34,8 +37,8 @@ class CommandCollection {
         if (args.length !== commandLayout.length) {
             return false;
         }
-        for (let argument of args) {
-            if (!commandLayout[i].includes(argument)) {
+        for (let i in args) {
+            if (!commandLayout[i].includes(args[i][0])) {
                 return false;
             }
         }

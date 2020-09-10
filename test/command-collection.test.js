@@ -6,10 +6,13 @@ const Collection = require('../src/command-collection');
 const validate = require('../src/command-validator');
 const Processor = require('../src/command-processor');
 const parseLayout = require('../src/command-layout-parser');
+const tokenTypes = require('../src/token-types');
+const Token = require('../src/token');
+const TokenFactory = require('../src/token-factory');
+const Collection = require('../src/command-collection');
+const CommandProcessor = require('../src/command-processor');
 const Stack = require('../src/stack');
 const Scanner = require('../src/scanner');
-const tokenTypes = require('../src/token-types');
-const { expect } = require('chai');
 
 const processor = new Processor(Stack, Scanner, new TokenFactory(tokenTypes, Token), parseLayout)
 
